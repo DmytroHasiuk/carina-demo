@@ -40,6 +40,10 @@ public class Header extends AbstractUIObject {
         return headerMenu;
     }
 
+    public void clickLinesButton() {
+        linesButton.click();
+    }
+
     private boolean isLinesButtonPresent() {
         return linesButton.isPresent();
     }

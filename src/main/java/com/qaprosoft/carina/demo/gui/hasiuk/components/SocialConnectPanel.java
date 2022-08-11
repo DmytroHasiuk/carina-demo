@@ -2,11 +2,13 @@ package com.qaprosoft.carina.demo.gui.hasiuk.components;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class SocialConnectPanel extends AbstractUIObject {
+    private final String hrefUserLogIn = "https://www.gsmarena.com/account.php3";
 
     @FindBy(xpath = "./a[1]")
     private ExtendedWebElement tipUsLink;
@@ -32,13 +34,35 @@ public class SocialConnectPanel extends AbstractUIObject {
     @FindBy(xpath = "./a[8]")
     private ExtendedWebElement signUpLink;
 
+    @FindBy(id = "login-popup2")
+    private LoginPopUpMenu loginPopUpMenu;
+
+    @FindBy(xpath = "./a[7]/span")
+    private ExtendedWebElement loginIconSpan;
+
     public SocialConnectPanel(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
+    }
+
+    public boolean isUserLogIn() {
+        return StringUtils.equalsIgnoreCase(logInLink.getAttribute("href"), hrefUserLogIn);
     }
 
     public boolean isAllElementsPresent() {
         return (isTipUsLinkPresent() && isYoutubeLinkPresent() && isInstagramLinkPresent() && isNewsReviewLinkPresent()
                 && isArenaEvLinkPresent() && isMerchLinkPresent() && isLogInLinkPresent() && isSignUpLinkPresent());
+    }
+
+    public void clickLogInLink() {
+        logInLink.click();
+    }
+
+    public LoginPopUpMenu getLoginPopUpMenu() {
+        return loginPopUpMenu;
+    }
+
+    public boolean isUserNicknameWright(String nickname) {
+        return StringUtils.equalsIgnoreCase(loginIconSpan.getText(), nickname);
     }
 
     private boolean isTipUsLinkPresent() {
