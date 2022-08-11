@@ -1,6 +1,5 @@
 package com.qaprosoft.carina.demo.gui.hasiuk.pages;
 
-import com.qaprosoft.carina.demo.mobile.gui.pages.hasiuk.pages.android.LoginPage;
 import org.openqa.selenium.WebDriver;
 
 public class HomePage extends GsmArenaPage {
@@ -9,7 +8,7 @@ public class HomePage extends GsmArenaPage {
         super(driver);
     }
 
-    public LoginPage loginUser(String email, String password) {
+    public LogInPage loginUser(String email, String password) {
         getHeader().getSocialConnectPanel().clickLogInLink();
         return getHeader().getSocialConnectPanel().getLoginPopUpMenu().loginUser(email, password);
     }
