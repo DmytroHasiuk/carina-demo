@@ -8,7 +8,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class SocialConnectPanel extends AbstractUIObject {
-    private final String hrefUserLogIn = "https://www.gsmarena.com/account.php3";
 
     @FindBy(xpath = "./a[1]")
     private ExtendedWebElement tipUsLink;
@@ -42,10 +41,6 @@ public class SocialConnectPanel extends AbstractUIObject {
 
     public SocialConnectPanel(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
-    }
-
-    public boolean isUserLogIn() {
-        return StringUtils.equalsIgnoreCase(logInLink.getAttribute("href"), hrefUserLogIn);
     }
 
     public boolean isAllElementsPresent() {

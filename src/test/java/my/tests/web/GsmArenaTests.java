@@ -1,12 +1,12 @@
 package my.tests.web;
 
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
+import com.qaprosoft.carina.core.foundation.utils.R;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
 import com.qaprosoft.carina.demo.gui.hasiuk.pages.HomePage;
-import com.qaprosoft.carina.demo.gui.hasiuk.pages.LogInPage;
+import com.qaprosoft.carina.demo.gui.hasiuk.services.UserService;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 public class GsmArenaTests implements IAbstractTest {
 
@@ -20,17 +20,9 @@ public class GsmArenaTests implements IAbstractTest {
     @Test(description = "Learning#Task-002")
     @MethodOwner(owner = "Dmytro Hasiuk")
     public void verifySuccessLogInTest() {
-        String email = "s9rowa@mail.ru";
-        String password = "changeme";
-        String nickname = "test.user";
-
-        HomePage homePage = openHomePage();
-        LogInPage loginPage = homePage.loginUser(email, password);
-        Assert.assertFalse(loginPage.isPageOpened(), "User was not redirected to home page");
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(homePage.isUserLogin(), "User is not log in");
-        softAssert.assertTrue(homePage.isUserNicknameWright(nickname), "User nickname is wrong");
-        softAssert.assertAll();
+        UserService userService = new UserService();
+        HomePage homePage = userService.loginUser();
+        Assert.assertTrue(homePage.isUserNicknameWright(R.TESTDATA.get("nickname")));
     }
 
     private HomePage openHomePage() {
