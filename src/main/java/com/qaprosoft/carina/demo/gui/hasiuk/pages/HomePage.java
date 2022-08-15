@@ -7,4 +7,9 @@ public class HomePage extends GsmArenaPage {
     public HomePage(WebDriver driver) {
         super(driver);
     }
+
+    public boolean isUserNicknameWright(String nickname) {
+        getHeader().clickLinesButton();
+        return getHeader().getSocialConnectPanel().isUserNicknameWright(nickname);
+    }
 }
