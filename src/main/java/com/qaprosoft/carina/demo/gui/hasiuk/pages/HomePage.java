@@ -18,7 +18,7 @@ public class HomePage extends GsmArenaPage {
     }
 
     public NewsPage openNewsPageFromFooter() {
-    scrollUntilPageEnd();
+        scrollUntilPageEnd();
         NewsPage newsPage = getFooter().getFooterMenu().clickNewsOption();
         Assert.assertTrue(newsPage.isPageOpened(), "News page was not opened");
         return newsPage;
