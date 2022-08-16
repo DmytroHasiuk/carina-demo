@@ -11,7 +11,7 @@ public class GsmArenaPage extends AbstractPage {
     @FindBy(id = "header")
     private Header header;
 
-    @FindBy(id = "footer-side")
+    @FindBy(id = "footer")
     private Footer footer;
 
     public GsmArenaPage(WebDriver driver) {
