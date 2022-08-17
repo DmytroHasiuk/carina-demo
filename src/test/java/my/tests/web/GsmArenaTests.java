@@ -54,8 +54,8 @@ public class GsmArenaTests implements IAbstractTest {
         NewsPage newsPage = homePage.openNewsPageFromFooter();
         String firstArticleName = newsPage.getFirstArticleName();
         ArticlePage articlePage = newsPage.openFirstArticlePage();
-        String onePlusArticleName = articlePage.getArticleName();
-        Assert.assertTrue(StringUtils.equals(firstArticleName, onePlusArticleName), "Articles are not the same");
+        Assert.assertTrue(StringUtils.equals(firstArticleName, articlePage.getArticleName()),
+                "Articles are not the same");
     }
 
     private HomePage openHomePage() {

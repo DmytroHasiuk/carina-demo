@@ -1,8 +1,6 @@
 package com.qaprosoft.carina.demo.gui.hasiuk.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 
 public class HomePage extends GsmArenaPage {
@@ -17,7 +15,7 @@ public class HomePage extends GsmArenaPage {
     }
 
     public NewsPage openNewsPageFromFooter() {
-        NewsPage newsPage = getFooter().getFooterMenu().clickNewsOption();
+        NewsPage newsPage = getFooterMenu().clickNewsOption();
         Assert.assertTrue(newsPage.isPageOpened(), "News page was not opened");
         return newsPage;
     }
