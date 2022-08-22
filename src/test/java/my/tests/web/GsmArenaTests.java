@@ -1,16 +1,22 @@
 package my.tests.web;
 
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
+import com.qaprosoft.carina.core.foundation.dataprovider.annotations.XlsDataSourceParameters;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
+import com.qaprosoft.carina.demo.gui.hasiuk.components.news.NewsItem;
 import com.qaprosoft.carina.demo.gui.hasiuk.pages.HomePage;
 import com.qaprosoft.carina.demo.gui.hasiuk.pages.LogInPage;
 import com.qaprosoft.carina.demo.gui.hasiuk.pages.NewsPage;
 import com.qaprosoft.carina.demo.gui.hasiuk.pages.ArticlePage;
 import com.qaprosoft.carina.demo.gui.hasiuk.services.LoginService;
 import com.qaprosoft.carina.demo.gui.hasiuk.services.UserService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
+import java.util.List;
 
 public class GsmArenaTests implements IAbstractTest {
 
@@ -56,6 +62,26 @@ public class GsmArenaTests implements IAbstractTest {
         ArticlePage articlePage = newsPage.openFirstArticlePage();
         Assert.assertTrue(StringUtils.equals(firstArticleName, articlePage.getArticleName()),
                 "Articles are not the same");
+    }
+
+    @Test(description = "Learning#Task-006", dataProvider = "DataProvider")
+    @XlsDataSourceParameters(path = "xls/search.xlsx", sheet = "newsGSM", dsUid = "TUID", dsArgs = "Input")
+    @MethodOwner(owner = "Dmytro Hasiuk")
+    public void verifySearchingProcessTest(String input) {
+        LoginService loginService = new LoginService();
+        HomePage homePage = loginService.loginValidUser();
+        NewsPage newsPage = homePage.openNewsPageFromFooter();
+        newsPage.searchText(input);
+        String expectedNewsPageTitle = "Results for \"" + input + "\"";
+        Assert.assertTrue(StringUtils.equals(expectedNewsPageTitle, newsPage.getTitleText()),
+                "Titles does`nt match");
+        List<NewsItem> newsItems = newsPage.getNewsItems();
+        Assert.assertFalse(CollectionUtils.isEmpty(newsItems), "News was not found");
+        SoftAssert softAssert = new SoftAssert();
+        for (NewsItem item : newsItems)
+            softAssert.assertTrue(StringUtils.contains(item.getTitleText(), input),
+                    "Phrase not found - \"" + input + "\"");
+        softAssert.assertAll();
     }
 
     private HomePage openHomePage() {

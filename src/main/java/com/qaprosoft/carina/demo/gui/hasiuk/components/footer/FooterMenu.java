@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class FooterMenu extends AbstractUIObject {
 
-    @FindBy(linkText = "News")
+    @FindBy(xpath = "./p/a[1]")
     private ExtendedWebElement newsLink;
 
     public FooterMenu(WebDriver driver, SearchContext searchContext) {
