@@ -19,4 +19,10 @@ public class HomePage extends GsmArenaPage {
         Assert.assertTrue(newsPage.isPageOpened(), "News page was not opened");
         return newsPage;
     }
+
+    public GlossaryPage openGlossaryPageFromFooter() {
+        GlossaryPage glossaryPage = getFooterMenu().clickGlossaryOption();
+        Assert.assertTrue(glossaryPage.isPageOpened(), "Glossary page was not opened");
+        return glossaryPage;
+    }
 }
