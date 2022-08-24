@@ -62,7 +62,7 @@ public class GlossaryPage extends GsmArenaPage {
     }
 
     public boolean isParagraphTittlesAlphabetic() {
-        List<String> text = paragraphTitles.stream().map(ExtendedWebElement::getText).collect(Collectors.toList());
-        return Ordering.natural().isOrdered(text);
+        List<String> textOfParagraphs = paragraphTitles.stream().map(ExtendedWebElement::getText).collect(Collectors.toList());
+        return Ordering.natural().isOrdered(textOfParagraphs);
     }
 }
