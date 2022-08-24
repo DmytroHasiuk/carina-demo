@@ -4,10 +4,7 @@ import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.core.foundation.dataprovider.annotations.XlsDataSourceParameters;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
 import com.qaprosoft.carina.demo.gui.hasiuk.components.news.NewsItem;
-import com.qaprosoft.carina.demo.gui.hasiuk.pages.HomePage;
-import com.qaprosoft.carina.demo.gui.hasiuk.pages.LogInPage;
-import com.qaprosoft.carina.demo.gui.hasiuk.pages.NewsPage;
-import com.qaprosoft.carina.demo.gui.hasiuk.pages.ArticlePage;
+import com.qaprosoft.carina.demo.gui.hasiuk.pages.*;
 import com.qaprosoft.carina.demo.gui.hasiuk.services.LoginService;
 import com.qaprosoft.carina.demo.gui.hasiuk.services.UserService;
 import org.apache.commons.collections.CollectionUtils;
@@ -82,6 +79,17 @@ public class GsmArenaTests implements IAbstractTest {
             softAssert.assertTrue(StringUtils.contains(item.getTitleText(), input),
                     "Phrase not found - \"" + input + "\"");
         softAssert.assertAll();
+    }
+
+    @Test(description = "Learning#Task-007")
+    @MethodOwner(owner = "Dmytro Hasiuk")
+    public void verifyGlossaryParagraphHeadersTest(){
+        HomePage homePage = openHomePage();
+        GlossaryPage glossaryPage = homePage.openGlossaryPageFromFooter();
+        Assert.assertTrue(glossaryPage.isParagraphTitleListAndParagraphLinksListEquals(),
+                "Sizes of paragraph header and paragraph lists don`t match");
+        Assert.assertTrue(glossaryPage.isParagraphTitleMatchLinksFirstLetter(),
+                "Glossary titles and lists link first letter don`t match");
     }
 
     private HomePage openHomePage() {
