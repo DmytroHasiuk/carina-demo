@@ -84,7 +84,7 @@ public class GsmArenaTests implements IAbstractTest {
 
     @Test(description = "Learning#Task-007")
     @MethodOwner(owner = "Dmytro Hasiuk")
-    public void verifyGlossaryParagraphHeadersTest(){
+    public void verifyGlossaryParagraphHeadersTest() {
         HomePage homePage = openHomePage();
         GlossaryPage glossaryPage = homePage.openGlossaryPageFromFooter();
         Assert.assertTrue(glossaryPage.isParagraphTitleListAndParagraphLinksListEquals(),
@@ -95,7 +95,7 @@ public class GsmArenaTests implements IAbstractTest {
 
     @Test(description = "Learning#Task-008")
     @MethodOwner(owner = "Dmytro Hasiuk")
-    public void isCollectionSorted(){
+    public void verifyGlossaryParagraphTextByAlphabetTest() {
         HomePage homePage = openHomePage();
         GlossaryPage glossaryPage = homePage.openGlossaryPageFromFooter();
         Assert.assertFalse(glossaryPage.isParagraphTittleEmpty(), "There is no paragraphs headers on the page");

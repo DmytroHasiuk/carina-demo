@@ -57,11 +57,11 @@ public class GlossaryPage extends GsmArenaPage {
         return true;
     }
 
-    public boolean isParagraphTittleEmpty(){
+    public boolean isParagraphTittleEmpty() {
         return CollectionUtils.isEmpty(paragraphTitles);
     }
 
-    public boolean isParagraphTittlesAlphabetic(){
+    public boolean isParagraphTittlesAlphabetic() {
         List<String> text = paragraphTitles.stream().map(ExtendedWebElement::getText).collect(Collectors.toList());
         return Ordering.natural().isOrdered(text);
     }
