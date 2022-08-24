@@ -1,7 +1,9 @@
 package com.qaprosoft.carina.demo.gui.hasiuk.pages;
 
+import com.google.common.collect.Ordering;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.demo.gui.hasiuk.components.glossary.ParagraphsLinks;
+import org.apache.commons.collections.CollectionUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -9,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandles;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GlossaryPage extends GsmArenaPage {
 
@@ -52,5 +55,14 @@ public class GlossaryPage extends GsmArenaPage {
             }
         }
         return true;
+    }
+
+    public boolean isParagraphTittleEmpty(){
+        return CollectionUtils.isEmpty(paragraphTitles);
+    }
+
+    public boolean isParagraphTittlesAlphabetic(){
+        List<String> text = paragraphTitles.stream().map(ExtendedWebElement::getText).collect(Collectors.toList());
+        return Ordering.natural().isOrdered(text);
     }
 }

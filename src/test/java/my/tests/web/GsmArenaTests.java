@@ -1,5 +1,6 @@
 package my.tests.web;
 
+import com.google.common.collect.Ordering;
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.core.foundation.dataprovider.annotations.XlsDataSourceParameters;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
@@ -90,6 +91,15 @@ public class GsmArenaTests implements IAbstractTest {
                 "Sizes of paragraph header and paragraph lists don`t match");
         Assert.assertTrue(glossaryPage.isParagraphTitleMatchLinksFirstLetter(),
                 "Glossary titles and lists link first letter don`t match");
+    }
+
+    @Test(description = "Learning#Task-008")
+    @MethodOwner(owner = "Dmytro Hasiuk")
+    public void isCollectionSorted(){
+        HomePage homePage = openHomePage();
+        GlossaryPage glossaryPage = homePage.openGlossaryPageFromFooter();
+        Assert.assertFalse(glossaryPage.isParagraphTittleEmpty(), "There is no paragraphs headers on the page");
+        Assert.assertTrue(glossaryPage.isParagraphTittlesAlphabetic(), "Paragraph titles are not alphabetic");
     }
 
     private HomePage openHomePage() {
