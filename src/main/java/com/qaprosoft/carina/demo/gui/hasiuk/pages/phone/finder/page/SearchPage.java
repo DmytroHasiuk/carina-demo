@@ -35,9 +35,9 @@ public class SearchPage extends GsmArenaPage {
         return (articleTitle.isPresent() && articleTitle.getText().equals(articleTitleText));
     }
 
-    public void searchXiaomiBrand() {
+    public void searchBrand(String brand) {
         brandButton.click();
-        inputBrandForm.type(R.TESTDATA.get("brand.to.search"));
+        inputBrandForm.type(brand);
     }
 
     public void selectXiaomiBrand() {
@@ -48,7 +48,8 @@ public class SearchPage extends GsmArenaPage {
         return bottomShowButton.isPresent();
     }
 
-    public boolean isBottomShownButtonHasText(String textToCheck) {
+    public boolean isBottomShownButtonHasText(String brandQuantity) {
+        String textToCheck = brandQuantity + " results";
         return StringUtils.equalsIgnoreCase(textToCheck, bottomShowButton.getButtonText());
     }
 

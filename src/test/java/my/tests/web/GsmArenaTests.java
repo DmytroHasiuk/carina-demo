@@ -13,6 +13,7 @@ import com.qaprosoft.carina.demo.gui.hasiuk.services.UserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -104,30 +105,31 @@ public class GsmArenaTests implements IAbstractTest {
         Assert.assertTrue(glossaryPage.isParagraphTittlesAlphabetic(), "Paragraph titles are not alphabetic");
     }
 
-    @Test(description = "Learning#Task-009")
+    @Test(description = "Learning#Task-009", dataProvider = "DataProvider")
+    @XlsDataSourceParameters(path = "xls/search.xlsx", sheet = "phoneFinder", dsUid = "TUID", dsArgs = "brand,bQuantity")
     @MethodOwner(owner = "Dmytro Hasiuk")
-    public void verifyPhoneFinderTest() {
+    public void verifyPhoneFinderTest(String brand, String quantity) {
         HomePage homePage = openHomePage();
         Assert.assertTrue(homePage.getPhoneFinderBlock().isElementPresent(), "Phone finder block is not present");
         SearchPage searchPage = homePage.getPhoneFinderBlock().clickPhoneFinderButton();
-        searchPage.searchXiaomiBrand();
+        searchPage.searchBrand(brand);
         searchPage.selectXiaomiBrand();
         SoftAssert softSearchPageAssert = new SoftAssert();
         softSearchPageAssert.assertTrue(searchPage.isXiaomiBrandSelected(), "Xiaomi brand was not selected");
         softSearchPageAssert.assertTrue(searchPage.isBottomShownButtonPresent(),
                 "Bottom show button is not presented");
-        softSearchPageAssert.assertTrue(searchPage.isBottomShownButtonHasText(R.TESTDATA.get("xiaomi.show.button.result")),
+        softSearchPageAssert.assertTrue(searchPage.isBottomShownButtonHasText(quantity),
                 "Show button has wrong text");
         softSearchPageAssert.assertAll();
         String searchPageUrl = searchPage.getPageURL();
         ResultPage resultPage = searchPage.clickShownButton();
         SoftAssert softResultPageAssert = new SoftAssert();
-        softResultPageAssert.assertTrue(resultPage.isTextInParagraphPresented(R.TESTDATA.get("xiaomi.paragraph.text")),
+        softResultPageAssert.assertTrue(resultPage.isTextWithWrightQuantityPresented(quantity),
                 "No needed text is presented");
         softResultPageAssert.assertTrue(resultPage.isTextWithButtonPresented(),
                 "Button with text is not presented");
         softResultPageAssert.assertFalse(resultPage.isPhoneListEmpty(), "There in no phones finds");
-        softResultPageAssert.assertTrue(resultPage.isAllPhonesHasNeededBrand(R.TESTDATA.get("brand.to.search")),
+        softResultPageAssert.assertTrue(resultPage.isAllPhonesHasNeededBrand(brand),
                 "There are phone with wrong brand");
         softResultPageAssert.assertTrue(resultPage.isBottomTextPresented(),
                 "Text on bottom of the page is wrong");

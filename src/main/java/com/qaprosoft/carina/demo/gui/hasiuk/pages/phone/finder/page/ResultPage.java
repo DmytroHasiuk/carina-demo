@@ -44,7 +44,12 @@ public class ResultPage extends GsmArenaPage {
         return (articleTitle.isPresent() && articleTitle.getText().equals(articleTitleText));
     }
 
-    public boolean isTextInParagraphPresented(String textToCheck) {
+    public boolean isTextWithWrightQuantityPresented(String brandQuantity) {
+        String textToCheck = "Your search returned " + brandQuantity + " results.";
+        return isTextInParagraphPresented(textToCheck);
+    }
+
+    private boolean isTextInParagraphPresented(String textToCheck) {
         return StringUtils.containsIgnoreCase(paragraphUnderTittle.getText(), textToCheck);
     }
 
