@@ -1,4 +1,4 @@
-package com.qaprosoft.carina.demo.gui.hasiuk.components.header;
+package com.qaprosoft.carina.demo.gui.hasiuk.components.common.header;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
