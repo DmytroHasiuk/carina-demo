@@ -39,7 +39,7 @@ public class Comment extends AbstractUIObject {
             SimpleDateFormat formatter = new SimpleDateFormat("dd MMM y", Locale.ENGLISH);
             return formatter.parse(dataOfPublication.getText());
         } catch (ParseException e) {
-            if (Pattern.matches("\\d hours ago", dataOfPublication.getText())) {
+            if (Pattern.matches("^\\d* hours ago$", dataOfPublication.getText())) {
                 int hours = Integer.parseInt(Character.toString(dataOfPublication.getText().charAt(0)));
                 Date date = new Date();
                 return (new Date(date.getTime() - (hours * 3600000L)));
