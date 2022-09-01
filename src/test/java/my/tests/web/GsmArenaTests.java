@@ -154,17 +154,19 @@ public class GsmArenaTests implements IAbstractTest {
         phonePage.sortByBestRating();
         Assert.assertTrue(phonePage.isCommentsSortedByPopularity(), "Comments are not sorted by popularity");
         Comment comment = phonePage.getComment(0);
-        int currentCommentsVotes = comment.getVotesQuantity();
-        phonePage.clickRateButton(comment);
+        int commentVotesBeforeClick = comment.getVotesQuantity();
+        comment.clickUvoteButton();
+        comment.clickVoteButton();
         phonePage.refresh();
-        comment = phonePage.getComment(0);
-        Assert.assertEquals(currentCommentsVotes + 1, comment.getVotesQuantity(),
+        int commentVotesAfterClick = comment.getVotesQuantity();
+        Assert.assertTrue(commentVotesBeforeClick < commentVotesAfterClick,
                 "Comment was not rated");
-        currentCommentsVotes = comment.getVotesQuantity();
-        phonePage.clickRateButton(comment);
+        commentVotesBeforeClick = comment.getVotesQuantity();
+        comment.clickUvoteButton();
+        comment.clickVoteButton();
         phonePage.refresh();
-        comment = phonePage.getComment(0);
-        Assert.assertEquals(currentCommentsVotes - 1, comment.getVotesQuantity(),
+        commentVotesAfterClick = comment.getVotesQuantity();
+        Assert.assertTrue(commentVotesBeforeClick > commentVotesAfterClick,
                 "Comment was not unrated");
         phonePage.sortNewestFirst();
         Assert.assertTrue(phonePage.isCommentsSortedByData(), "Comments not sorted by data");

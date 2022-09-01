@@ -2,6 +2,7 @@ package com.qaprosoft.carina.demo.gui.hasiuk.components.phone.page;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
+import com.qaprosoft.carina.demo.gui.hasiuk.exceptions.WrongDataException;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -34,7 +35,7 @@ public class Comment extends AbstractUIObject {
         super(driver, searchContext);
     }
 
-    public Date getTimeOfPublication() {
+    public Date getTimeOfPublication() throws WrongDataException {
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("dd MMM y", Locale.ENGLISH);
             return formatter.parse(dataOfPublication.getText());
@@ -45,7 +46,7 @@ public class Comment extends AbstractUIObject {
                 return (new Date(date.getTime() - (hours * 3600000L)));
             } else {
                 LOGGER.error(e.getMessage());
-                return null;
+                throw new WrongDataException();
             }
         }
     }
