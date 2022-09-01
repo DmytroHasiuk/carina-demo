@@ -41,9 +41,15 @@ public class Comment extends AbstractUIObject {
             return formatter.parse(dataOfPublication.getText());
         } catch (ParseException e) {
             if (Pattern.matches("^\\d* hours ago$", dataOfPublication.getText())) {
-                int hours = Integer.parseInt(Character.toString(dataOfPublication.getText().charAt(0)));
-                Date date = new Date();
-                return (new Date(date.getTime() - (hours * 3600000L)));
+                if (Character.toString(dataOfPublication.getText().charAt(1)).equals(" ")) {
+                    int hours = Integer.parseInt(Character.toString(dataOfPublication.getText().charAt(0)));
+                    Date date = new Date();
+                    return (new Date(date.getTime() - (hours * 3600000L)));
+                } else {
+                    int hours = Integer.parseInt(dataOfPublication.getText().substring(0,2));
+                    Date date = new Date();
+                    return (new Date(date.getTime() - (hours * 3600000L)));
+                }
             } else {
                 LOGGER.error(e.getMessage());
                 throw new WrongDataException();

@@ -158,6 +158,7 @@ public class GsmArenaTests implements IAbstractTest {
         comment.clickUvoteButton();
         comment.clickVoteButton();
         phonePage.refresh();
+        comment = phonePage.getComment(0);
         int commentVotesAfterClick = comment.getVotesQuantity();
         Assert.assertTrue(commentVotesBeforeClick < commentVotesAfterClick,
                 "Comment was not rated");
@@ -165,6 +166,7 @@ public class GsmArenaTests implements IAbstractTest {
         comment.clickUvoteButton();
         comment.clickVoteButton();
         phonePage.refresh();
+        comment = phonePage.getComment(0);
         commentVotesAfterClick = comment.getVotesQuantity();
         Assert.assertTrue(commentVotesBeforeClick > commentVotesAfterClick,
                 "Comment was not unrated");
