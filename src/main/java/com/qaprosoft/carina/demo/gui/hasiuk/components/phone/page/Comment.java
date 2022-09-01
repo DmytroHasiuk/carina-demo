@@ -61,12 +61,12 @@ public class Comment extends AbstractUIObject {
         return Integer.parseInt(votes.getAttribute("data-votes"));
     }
 
-    public void clickUvoteButton() {
+    public void scrollToUvoteButtonAndClick() {
         dataOfPublication.scrollTo();
         uvoteButton.click();
     }
 
-    public void clickVoteButton() {
+    public void scrollToVoteButtonAndClick() {
         voteButton.scrollTo();
         voteButton.click();
     }
