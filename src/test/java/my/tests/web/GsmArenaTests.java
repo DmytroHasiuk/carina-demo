@@ -4,6 +4,7 @@ import com.qaprosoft.carina.core.foundation.IAbstractTest;
 import com.qaprosoft.carina.core.foundation.dataprovider.annotations.XlsDataSourceParameters;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
 import com.qaprosoft.carina.demo.gui.hasiuk.components.news.NewsItem;
+import com.qaprosoft.carina.demo.gui.hasiuk.components.phone.page.Comment;
 import com.qaprosoft.carina.demo.gui.hasiuk.pages.*;
 import com.qaprosoft.carina.demo.gui.hasiuk.pages.phone.finder.page.ResultPage;
 import com.qaprosoft.carina.demo.gui.hasiuk.pages.phone.finder.page.SearchPage;
@@ -11,17 +12,13 @@ import com.qaprosoft.carina.demo.gui.hasiuk.services.LoginService;
 import com.qaprosoft.carina.demo.gui.hasiuk.services.UserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 public class GsmArenaTests implements IAbstractTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @Test(description = "Learning#Task-001")
     @MethodOwner(owner = "Dmytro Hasiuk")
@@ -139,6 +136,42 @@ public class GsmArenaTests implements IAbstractTest {
         softResultPageAssert.assertAll();
         searchPage = resultPage.clickRefineButton();
         Assert.assertEquals(searchPage.getPageURL(), searchPageUrl, "You don`t come back to previous page");
+    }
+
+    @Test(description = "Learning#Task-010", dataProvider = "DataProvider")
+    @XlsDataSourceParameters(path = "xls/search.xlsx", sheet = "opinions", dsUid = "TUID", dsArgs = "brand")
+    @MethodOwner(owner = "Dmytro Hasiuk")
+    public void verifyOpinionsOnPhonePageTest(String brand) {
+        LoginService loginService = new LoginService();
+        HomePage homePage = loginService.loginValidUser();
+        Assert.assertTrue(homePage.getPhoneFinderBlock().isNeededBrandPresent(brand),
+                "There is no such brand: " + brand);
+        BrandPhonesPage brandPhonesPage = homePage.getPhoneFinderBlock().clickOnBrand(brand);
+        brandPhonesPage.clickPopularityTab();
+        Assert.assertFalse(brandPhonesPage.isPhonesEmpty(), "There is no phones on the page");
+        PhonePage phonePage = brandPhonesPage.clickOnFirstPhone(brand);
+        phonePage.clickOpinionsTab();
+        phonePage.sortByBestRating();
+        Assert.assertTrue(phonePage.isCommentsSortedByPopularity(), "Comments are not sorted by popularity");
+        Comment comment = phonePage.getComment(0);
+        int commentVotesBeforeClick = comment.getVotesQuantity();
+        comment.clickUvoteButton();
+        comment.clickVoteButton();
+        phonePage.refresh();
+        comment = phonePage.getComment(0);
+        int commentVotesAfterClick = comment.getVotesQuantity();
+        Assert.assertTrue(commentVotesBeforeClick < commentVotesAfterClick,
+                "Comment was not rated");
+        commentVotesBeforeClick = comment.getVotesQuantity();
+        comment.clickUvoteButton();
+        comment.clickVoteButton();
+        phonePage.refresh();
+        comment = phonePage.getComment(0);
+        commentVotesAfterClick = comment.getVotesQuantity();
+        Assert.assertTrue(commentVotesBeforeClick > commentVotesAfterClick,
+                "Comment was not unrated");
+        phonePage.sortNewestFirst();
+        Assert.assertTrue(phonePage.isCommentsSortedByData(), "Comments not sorted by data");
     }
 
     private HomePage openHomePage() {
