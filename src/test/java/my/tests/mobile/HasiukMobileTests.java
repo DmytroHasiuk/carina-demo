@@ -1,12 +1,8 @@
 package my.tests.mobile;
 
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
-import com.qaprosoft.carina.core.foundation.crypto.CryptoTool;
 import com.qaprosoft.carina.core.foundation.utils.R;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
-import com.qaprosoft.carina.demo.mobile.gui.pages.android.CarinaDescriptionPage;
-import com.qaprosoft.carina.demo.mobile.gui.pages.common.CarinaDescriptionPageBase;
-import com.qaprosoft.carina.demo.mobile.gui.pages.common.WelcomePageBase;
 import com.qaprosoft.carina.demo.mobile.gui.pages.hasiuk.pages.common.HomePageBase;
 import com.qaprosoft.carina.demo.mobile.gui.pages.hasiuk.pages.common.LoginPageBase;
 import com.qaprosoft.carina.demo.mobile.gui.pages.hasiuk.pages.common.WebViewPageBase;
@@ -44,6 +40,21 @@ public class HasiukMobileTests implements IAbstractTest {
         Assert.assertTrue(loginPageBase.isPrivacyPolicyCheckboxChecked(), "Privacy policy checkbox is not checked");
         WebViewPageBase webViewPageBase = loginPageBase.clickSignUpButton();
         Assert.assertTrue(webViewPageBase.isPageOpened(), "Web view page is not opened");
+    }
+
+    @Test(description = "Learning-mobile#Task 002")
+    @MethodOwner(owner = "Dmytro Hasiuk")
+    public void verifySignUpButtonTest() {
+        HomePageBase homePageBase = openHomePage();
+        LoginPageBase loginPageBase = homePageBase.clickNextButton();
+        Assert.assertTrue(loginPageBase.isPageOpened(), "Login page was not opened");
+        loginPageBase.typeName(R.TESTDATA.get("name"));
+        Assert.assertTrue(loginPageBase.isNameTyped(R.TESTDATA.get("name")), "Name was not type");
+        loginPageBase.typePassword(R.TESTDATA.get("mobile.password"));
+        Assert.assertTrue(loginPageBase.isPasswordTyped(R.TESTDATA.get("mobile.password")), "Password was not typed");
+        loginPageBase.clickMaleButton();
+        Assert.assertTrue(loginPageBase.isMaleRadioButtonChecked(), "Female button was not clicked");
+        Assert.assertFalse(loginPageBase.isSignUpButtonActive(), "Sign up button is active");
     }
 
     private HomePageBase openHomePage() {
