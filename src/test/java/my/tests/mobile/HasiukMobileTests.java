@@ -1,12 +1,8 @@
 package my.tests.mobile;
 
 import com.qaprosoft.carina.core.foundation.IAbstractTest;
-import com.qaprosoft.carina.core.foundation.crypto.CryptoTool;
 import com.qaprosoft.carina.core.foundation.utils.R;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
-import com.qaprosoft.carina.demo.mobile.gui.pages.android.CarinaDescriptionPage;
-import com.qaprosoft.carina.demo.mobile.gui.pages.common.CarinaDescriptionPageBase;
-import com.qaprosoft.carina.demo.mobile.gui.pages.common.WelcomePageBase;
 import com.qaprosoft.carina.demo.mobile.gui.pages.hasiuk.pages.common.HomePageBase;
 import com.qaprosoft.carina.demo.mobile.gui.pages.hasiuk.pages.common.LoginPageBase;
 import com.qaprosoft.carina.demo.mobile.gui.pages.hasiuk.pages.common.WebViewPageBase;

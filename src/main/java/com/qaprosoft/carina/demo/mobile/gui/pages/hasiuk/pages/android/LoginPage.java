@@ -9,7 +9,6 @@ import com.qaprosoft.carina.demo.mobile.gui.pages.hasiuk.pages.common.LoginPageB
 import com.qaprosoft.carina.demo.mobile.gui.pages.hasiuk.pages.common.WebViewPageBase;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.FindBy;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = LoginPageBase.class)
 public class LoginPage extends LoginPageBase implements IMobileUtils {
