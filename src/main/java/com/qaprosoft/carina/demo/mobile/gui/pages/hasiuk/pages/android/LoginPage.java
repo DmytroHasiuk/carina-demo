@@ -2,7 +2,9 @@ package com.qaprosoft.carina.demo.mobile.gui.pages.hasiuk.pages.android;
 
 import com.qaprosoft.carina.core.foundation.crypto.CryptoTool;
 import com.qaprosoft.carina.core.foundation.utils.factory.DeviceType;
+import com.qaprosoft.carina.core.foundation.utils.mobile.IMobileUtils;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
+import com.qaprosoft.carina.core.foundation.webdriver.locator.ExtendedFindBy;
 import com.qaprosoft.carina.demo.mobile.gui.pages.hasiuk.pages.common.LoginPageBase;
 import com.qaprosoft.carina.demo.mobile.gui.pages.hasiuk.pages.common.WebViewPageBase;
 import org.apache.commons.lang3.StringUtils;
@@ -10,27 +12,27 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = LoginPageBase.class)
-public class LoginPage extends LoginPageBase {
+public class LoginPage extends LoginPageBase implements IMobileUtils {
 
-    @FindBy(id = "action_bar_root")
+    @ExtendedFindBy(androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/action_bar_root\")")
     private ExtendedWebElement barTool;
 
-    @FindBy(id = "name")
+    @ExtendedFindBy(androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/name\")")
     private ExtendedWebElement inputNameField;
 
-    @FindBy(id = "password")
+    @ExtendedFindBy(androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/password\")")
     private ExtendedWebElement inputPasswordField;
 
-    @FindBy(id = "radio_male")
+    @ExtendedFindBy(androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/radio_male\")")
     private ExtendedWebElement maleRadioButton;
 
-    @FindBy(id = "radio_female")
+    @ExtendedFindBy(androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/radio_female\")")
     private ExtendedWebElement femaleRadioButton;
 
-    @FindBy(id = "checkbox")
+    @ExtendedFindBy(androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/checkbox\")")
     private ExtendedWebElement privacyPolicyCheckBox;
 
-    @FindBy(id = "login_button")
+    @ExtendedFindBy(androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/login_button\")")
     private ExtendedWebElement singUpButton;
 
     public LoginPage(WebDriver driver) {
@@ -112,5 +114,10 @@ public class LoginPage extends LoginPageBase {
 
     public boolean isFemaleRadioButtonChecked() {
         return Boolean.parseBoolean(femaleRadioButton.getAttribute("checked"));
+    }
+
+    @Override
+    public boolean isSignUpButtonActive() {
+        return Boolean.parseBoolean(singUpButton.getAttribute("enabled"));
     }
 }

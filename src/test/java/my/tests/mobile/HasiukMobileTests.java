@@ -46,6 +46,21 @@ public class HasiukMobileTests implements IAbstractTest {
         Assert.assertTrue(webViewPageBase.isPageOpened(), "Web view page is not opened");
     }
 
+    @Test(description = "Learning-mobile#Task 002")
+    @MethodOwner(owner = "Dmytro Hasiuk")
+    public void verifySignUpButtonTest() {
+        HomePageBase homePageBase = openHomePage();
+        LoginPageBase loginPageBase = homePageBase.clickNextButton();
+        Assert.assertTrue(loginPageBase.isPageOpened(), "Login page was not opened");
+        loginPageBase.typeName(R.TESTDATA.get("name"));
+        Assert.assertTrue(loginPageBase.isNameTyped(R.TESTDATA.get("name")), "Name was not type");
+        loginPageBase.typePassword(R.TESTDATA.get("mobile.password"));
+        Assert.assertTrue(loginPageBase.isPasswordTyped(R.TESTDATA.get("mobile.password")), "Password was not typed");
+        loginPageBase.clickMaleButton();
+        Assert.assertTrue(loginPageBase.isMaleRadioButtonChecked(), "Female button was not clicked");
+        Assert.assertFalse(loginPageBase.isSignUpButtonActive(), "Sign up button is active");
+    }
+
     private HomePageBase openHomePage() {
         HomePageBase homePageBase = initPage(getDriver(), HomePageBase.class);
         Assert.assertTrue(homePageBase.isPageOpened(), "Home page was not opened");
