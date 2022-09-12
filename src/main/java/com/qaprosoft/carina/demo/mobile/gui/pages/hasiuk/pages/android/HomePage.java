@@ -20,9 +20,10 @@ public class HomePage extends HomePageBase {
     }
 
     @Override
-    public boolean isPageOpened(){
+    public boolean isPageOpened() {
         return carinaLogo.isElementPresent();
     }
+
     @Override
     public LoginPageBase clickNextButton() {
         nextButton.click();
