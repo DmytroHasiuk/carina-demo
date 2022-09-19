@@ -8,4 +8,8 @@ public abstract class WebViewPageBase extends AbstractPage {
     public WebViewPageBase(WebDriver driver) {
         super(driver);
     }
+
+    public abstract void clickLeftBurgerMenuButton();
+
+    public abstract MapPageBase clickMapLink();
 }

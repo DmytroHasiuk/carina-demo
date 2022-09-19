@@ -5,6 +5,7 @@ import com.qaprosoft.carina.core.foundation.utils.R;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
 import com.qaprosoft.carina.demo.mobile.gui.pages.hasiuk.pages.common.HomePageBase;
 import com.qaprosoft.carina.demo.mobile.gui.pages.hasiuk.pages.common.LoginPageBase;
+import com.qaprosoft.carina.demo.mobile.gui.pages.hasiuk.pages.common.MapPageBase;
 import com.qaprosoft.carina.demo.mobile.gui.pages.hasiuk.pages.common.WebViewPageBase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -55,6 +56,23 @@ public class HasiukMobileTests implements IAbstractTest {
         loginPageBase.clickMaleButton();
         Assert.assertTrue(loginPageBase.isMaleRadioButtonChecked(), "Female button was not clicked");
         Assert.assertFalse(loginPageBase.isSignUpButtonActive(), "Sign up button is active");
+    }
+
+    @Test(description = "Learning-mobile#Task 003")
+    @MethodOwner(owner = "Dmytro Hasiuk")
+    public void verifyMapFeature() {
+        HomePageBase homePageBase = openHomePage();
+        LoginPageBase loginPageBase = homePageBase.clickNextButton();
+        Assert.assertTrue(loginPageBase.isPageOpened(), "Login page was not opened");
+        WebViewPageBase webViewPageBase = loginPageBase.login();
+        Assert.assertTrue(webViewPageBase.isPageOpened(), "Login page was not opened");
+        webViewPageBase.clickLeftBurgerMenuButton();
+        MapPageBase mapPageBase = webViewPageBase.clickMapLink();
+        Assert.assertTrue(mapPageBase.isPageOpened(), "Map page was not opened");
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(mapPageBase.isZoomInBtnPresent(), "Zoom in btn is not present");
+        softAssert.assertTrue(mapPageBase.isZoomOutsBtnPresent(), "Zoom out btn is not present");
+        softAssert.assertTrue(mapPageBase.isZoomInAboveZoomOut(), "Zoom in btn is under zoom out btn");
     }
 
     private HomePageBase openHomePage() {
