@@ -41,4 +41,6 @@ public abstract class LoginPageBase extends AbstractPage {
     public abstract boolean isFemaleRadioButtonChecked();
 
     public abstract boolean isSignUpButtonActive();
+
+    public abstract WebViewPageBase login();
 }

@@ -1,6 +1,7 @@
 package com.qaprosoft.carina.demo.mobile.gui.pages.hasiuk.pages.android;
 
 import com.qaprosoft.carina.core.foundation.crypto.CryptoTool;
+import com.qaprosoft.carina.core.foundation.utils.R;
 import com.qaprosoft.carina.core.foundation.utils.factory.DeviceType;
 import com.qaprosoft.carina.core.foundation.utils.mobile.IMobileUtils;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
@@ -43,34 +44,42 @@ public class LoginPage extends LoginPageBase implements IMobileUtils {
         return barTool.isElementPresent();
     }
 
+    @Override
     public boolean isInputNameFieldPresent() {
         return inputNameField.isPresent();
     }
 
+    @Override
     public boolean isInputPasswordFieldPresent() {
         return inputPasswordField.isPresent();
     }
 
+    @Override
     public boolean isMaleButtonPresent() {
         return maleRadioButton.isPresent();
     }
 
+    @Override
     public boolean isFemaleButtonPresent() {
         return femaleRadioButton.isPresent();
     }
 
+    @Override
     public boolean isPrivacyPolicyCheckboxPresent() {
         return privacyPolicyCheckBox.isPresent();
     }
 
+    @Override
     public boolean isPrivacyPolicyCheckboxChecked() {
         return Boolean.parseBoolean(privacyPolicyCheckBox.getAttribute("checked"));
     }
 
+    @Override
     public void typeName(String name) {
         inputNameField.type(name);
     }
 
+    @Override
     public void typePassword(String password) {
         inputPasswordField.type(password);
     }
@@ -96,10 +105,12 @@ public class LoginPage extends LoginPageBase implements IMobileUtils {
         return initPage(getDriver(), WebViewPageBase.class);
     }
 
+    @Override
     public boolean isNameTyped(String name) {
         return StringUtils.equalsIgnoreCase(inputNameField.getText(), name);
     }
 
+    @Override
     public boolean isPasswordTyped(String password) {
         CryptoTool cryptoTool = new CryptoTool();
         String decryptKey = StringUtils.remove(password, "{crypt:");
@@ -107,10 +118,12 @@ public class LoginPage extends LoginPageBase implements IMobileUtils {
         return StringUtils.equalsIgnoreCase(inputPasswordField.getText(), cryptoTool.decrypt(decryptKey));
     }
 
+    @Override
     public boolean isMaleRadioButtonChecked() {
         return Boolean.parseBoolean(maleRadioButton.getAttribute("checked"));
     }
 
+    @Override
     public boolean isFemaleRadioButtonChecked() {
         return Boolean.parseBoolean(femaleRadioButton.getAttribute("checked"));
     }
@@ -118,5 +131,14 @@ public class LoginPage extends LoginPageBase implements IMobileUtils {
     @Override
     public boolean isSignUpButtonActive() {
         return Boolean.parseBoolean(singUpButton.getAttribute("enabled"));
+    }
+
+    @Override
+    public WebViewPageBase login() {
+        typeName(R.TESTDATA.get("name"));
+        typePassword(R.TESTDATA.get("mobile.password"));
+        clickMaleButton();
+        clickPrivacyPolicyCheckbox();
+        return clickSignUpButton();
     }
 }
