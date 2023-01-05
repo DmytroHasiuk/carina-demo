@@ -5,6 +5,7 @@ import java.util.Objects;
 public class User {
     private String email;
     private String password;
+    private String surname;
 
     public User() {
     }
